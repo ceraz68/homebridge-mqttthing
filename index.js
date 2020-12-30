@@ -411,18 +411,14 @@ function makeThing( log, accessoryConfig ) {
 
             function characteristics_HSVLight( service ) {
 
-                let lastpubmsg = '';
-
                 function publishNow() {
                     var bri = state.bri;
                     if( !config.topics.setOn && !state.on ) {
                         bri = 0;
                     }
                     var msg = state.hue + ',' + state.sat + ',' + bri;
-                    if( msg != lastpubmsg ) {
-                        mqttPublish( config.topics.setHSV, 'HSV', msg );
-                        lastpubmsg = msg;
-                    }
+                    mqttPublish( config.topics.setHSV, 'HSV', msg );
+
                 }
 
                 function publish() {
@@ -685,8 +681,6 @@ function makeThing( log, accessoryConfig ) {
                     hexPrefix = '';
                 }
 
-                let lastpubmsg = '';
-
                 function publishNow() {
                     var bri = state.bri;
                     if( !config.topics.setOn && !state.on ) {
@@ -789,10 +783,7 @@ function makeThing( log, accessoryConfig ) {
                             }
                         }
                     }
-                    if( msg != lastpubmsg ) {
-                        mqttPublish( setTopic, property, msg );
-                        lastpubmsg = msg;
-                    }
+                    mqttPublish( setTopic, property, msg );
 
                     if( whiteSep ) {
                         mqttPublish( config.topics.setWhite, 'white', rgb.w );
